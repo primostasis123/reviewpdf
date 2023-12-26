@@ -27,7 +27,7 @@ export function LoginDialog() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[400px] ">
         <DialogHeader>
-          <DialogTitle>Sign In</DialogTitle>
+          <DialogTitle>Sign Up</DialogTitle>
           <DialogDescription>to continue to ReviewPDF</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -42,16 +42,26 @@ export function LoginDialog() {
             </button>
           </div>
       
-          <div className="grid  gap-4 ">
+          <div className="grid gap-4 ">
             <button
               className={buttonVariants({
                 size: "sm",
               })}
             >
-              <Icons.google className="mr-2 h-4 w-4" />
+              <Icons.facebook className="mr-2 h-4 w-4" />
               Continue with Facebook
             </button>
           </div>
+
+          {/* <div className="grid gap-4 ">
+            <button
+              className={buttonVariants({
+                size: "sm",
+              })}
+            >
+              Use Email
+            </button>
+          </div> */}
         </div>
         <DialogFooter>
           <DialogClose asChild>
