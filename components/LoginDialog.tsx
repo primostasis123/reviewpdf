@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export function DialogDemo() {
+export function LoginDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -25,17 +25,16 @@ export function DialogDemo() {
           Login
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] ">
+      <DialogContent className="sm:max-w-[400px] ">
         <DialogHeader>
-          <DialogTitle>Login</DialogTitle>
-          <DialogDescription></DialogDescription>
+          <DialogTitle>Sign In</DialogTitle>
+          <DialogDescription>to continue to ReviewPDF</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <div className="grid items-center gap-4 ">
+          <div className="grid  gap-4 ">
             <button
               className={buttonVariants({
-                size: "lg",
-                className: "rounded-full ",
+                size: "sm",
               })}
             >
               <Icons.google className="mr-2 h-4 w-4" />
@@ -43,11 +42,10 @@ export function DialogDemo() {
             </button>
           </div>
       
-          <div className="grid items-center gap-4 ">
+          <div className="grid  gap-4 ">
             <button
               className={buttonVariants({
-                size: "lg",
-                className: "rounded-full ",
+                size: "sm",
               })}
             >
               <Icons.google className="mr-2 h-4 w-4" />

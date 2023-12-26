@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import dashboard from "../public/dashboard-preview.jpg";
+
 export default function Home() {
   return (
     <>

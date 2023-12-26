@@ -1,7 +1,7 @@
 import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { buttonVariants } from "./ui/button";
-import { DialogDemo } from "./DialogDemo";
+import { LoginDialog } from "./LoginDialog";
 
 
 const Navbar = () => {
@@ -21,7 +21,7 @@ const Navbar = () => {
               })}>
                 Pricing
               </Link>
-              <DialogDemo/>
+              <LoginDialog/>
               {/* <Link href="/login" className={buttonVariants({
                 size: "sm"
               })}>

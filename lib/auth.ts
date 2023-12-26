@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
-import EmailProvider from "next-auth/providers/email";
+import Facebook from "next-auth/providers/facebook";
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { db } from '@/lib/db'
 
@@ -11,7 +11,10 @@ export const { handlers, auth } = NextAuth({
       clientId: process.env.AUTH_GOOGLE_CLIENT_ID,
       clientSecret: process.env.AUTH_GOOGLE_CLIENT_SECRET,
     }),
-  
+    Facebook({
+      clientId: process.env.AUTH_FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.AUTH_FACEBOOK_CLIENT_SECRET,
+    }),
   ],
   callbacks: {
       async redirect({ url, baseUrl }) {
