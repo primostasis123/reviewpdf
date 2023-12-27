@@ -27,7 +27,7 @@ export function LoginDialog() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[400px] ">
         <DialogHeader>
-          <DialogTitle>Sign Up</DialogTitle>
+          <DialogTitle>Login</DialogTitle>
           <DialogDescription>to continue to ReviewPDF</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">

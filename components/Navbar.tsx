@@ -2,7 +2,7 @@ import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { buttonVariants } from "./ui/button";
 import { LoginDialog } from "./LoginDialog";
-
+import { auth } from "@/lib/auth";
 
 const Navbar = () => {
   return (
