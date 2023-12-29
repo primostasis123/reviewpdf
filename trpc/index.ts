@@ -1,6 +1,6 @@
 import { router } from './trpc'
 
-const appRouter = router({
+export const appRouter = router({
 
 })
 
