@@ -21,6 +21,10 @@ export const { handlers, auth } = NextAuth({
       async redirect({ url, baseUrl }) {
       return  "/dashboard";
     },
+    async session({ session, user, token }) {
+      session.user.id = user?.id
+      return session
+    },
   }
 
   // callbacks: {
@@ -30,9 +34,7 @@ export const { handlers, auth } = NextAuth({
   //   async redirect({ url, baseUrl }) {
   //     return "/dashboard"
   //   },
-  //   async session({ session, user, token }) {
-  //     return session
-  //   },
+
   //   async jwt({ token, user, account, profile, isNewUser }) {
   //     return token
   //   }
