@@ -1,19 +1,12 @@
-
-
-import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
-import { trpc } from "../_trpc/client";
-export default async function Dashboard() {
+import { auth } from "@/lib/auth"
+import { Dashboard } from "@/components/Dashboard";
+export default async function page() {
   const session = await auth();
-  if (!session) {
-    redirect("/auth-callback?origin=dashboard");
-  }
-
-  const { data, isLoading } = trpc.test.useQuery();
-  console.log(data);
   return (
-    <div>
-      {session?.user.name} <pre>{JSON.stringify(session, null, 2)}</pre>{" "}
-    </div>
+    <Dashboard/>
+    // <div>
+    //   {session?.user.name} <pre>{JSON.stringify(session, null, 2)}</pre>{" "}
+    //   <Dashboard/>
+    // </div>
   );
 }
