@@ -8,6 +8,8 @@ import { format } from "date-fns";
 import { Button } from "./ui/button";
 export const Dashboard = () => {
   const { data: files, isLoading } = trpc.getUserFiles.useQuery();
+  const { mutate: deleteFile } = trpc.deleteFile.useMutation();
+
 
   return (
     <main className="mx-auto max-w-7xl md:p-10">
@@ -54,7 +56,7 @@ export const Dashboard = () => {
                     <MessageSquare className="h-4 w-4" />
                     mocked
                   </div>
-                  <Button size="sm" className="w-full" variant="destructive">
+                  <Button onClick={() => deleteFile({ id: file.id })} size="sm" className="w-full" variant="destructive">
                     <Trash className="h-4 w-4" />
                   </Button>
                 </div>
