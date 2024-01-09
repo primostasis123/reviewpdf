@@ -1,8 +1,28 @@
+import { Input } from "@/components/ui/input";
 import { privateProcedure, publicProcedure, router } from "./trpc";
 import { db } from "@/lib/db";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 export const appRouter = router({
+
+  getFileUploadStatus:privateProcedure
+    .input(z.object({fileId: z.string()}))
+    .query(async ({ctx, input}) => {
+      const { userId } = ctx
+      const file = await db.file.findFirst({
+        where : {
+          id: input.fileId,
+          userId
+        }
+      })
+
+      if(!file) {
+        return {status : "PENDING" as const}
+      }
+
+      return { status : file.uploadStatus }
+  }),
+
   getUserFiles: privateProcedure.query(async ({ ctx }) => {
     const { userId } = ctx;
     return await db.file.findMany({
