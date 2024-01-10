@@ -4,7 +4,6 @@ import { db } from "@/lib/db";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 export const appRouter = router({
-
   getFileUploadStatus:privateProcedure
     .input(z.object({fileId: z.string()}))
     .query(async ({ctx, input}) => {

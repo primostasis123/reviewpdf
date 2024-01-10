@@ -10,9 +10,8 @@ import { buttonVariants } from "../ui/button";
 interface ChatWrapperProps {
   fileId: string;
 }
-
-const ChatWrapper = ({ fileId }: ChatWrapperProps) => {
-  const { data, isLoading } = trpc.getFileUploadStatus.useQuery(
+ const  ChatWrapper = ({ fileId }: ChatWrapperProps) => {
+  const { data, isLoading } =  trpc.getFileUploadStatus.useQuery(
     {
       fileId,
     },
@@ -90,4 +89,4 @@ const ChatWrapper = ({ fileId }: ChatWrapperProps) => {
   );
 };
 
-export default ChatWrapper;
+export  default ChatWrapper;
