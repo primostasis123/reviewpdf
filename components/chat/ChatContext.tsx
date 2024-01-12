@@ -1,21 +1,22 @@
-import { ReactNode, useState } from "react";
-import { createContext } from "vm";
+import { ReactNode, useState, createContext } from "react";
 import { useToast } from "../ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 
-// interface StreamResponse  {
-//   addMessage: () => void;
-//   message: string;
-//   handleInputChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-//   isLoading: boolean;
-// };
+type StreamResponse = {
+  addMessage: () => void
+  message: string
+  handleInputChange: (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => void
+  isLoading: boolean
+}
 
-export const ChatContext = createContext({
+export const ChatContext = createContext<StreamResponse>({
   addMessage: () => {},
-  message: "",
+  message: '',
   handleInputChange: () => {},
   isLoading: false,
-});
+})
 
 interface Props {
   fileId: string;
@@ -43,6 +44,7 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
       return response.body;
     },
   });
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
   };
