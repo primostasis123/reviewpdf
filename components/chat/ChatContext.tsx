@@ -145,6 +145,7 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
             }
             return page
           });
+          return {...old, pages:updatedPages}
         });
       }
     },
