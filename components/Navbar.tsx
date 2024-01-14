@@ -1,6 +1,6 @@
 import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { LoginDialog } from "./LoginDialog";
 import { auth } from "@/lib/auth";
 
@@ -14,20 +14,18 @@ const Navbar = () => {
           </Link>
           {/** todo : add mobile navbar */}
           <div className="hidden items-center space-x-4 sm:flex">
-            <>
-              <Link href="/pricing" className={buttonVariants({
-                variant: "ghost",
-                size: "sm"
-              })}>
+              <Link
+                href="/pricing"
+                className={buttonVariants({
+                  variant: "ghost",
+                  size: "sm",
+                })}
+              >
                 Pricing
               </Link>
-              <LoginDialog/>
-              {/* <Link href="/login" className={buttonVariants({
-                size: "sm"
-              })}>
-                Login
-              </Link> */}
-            </>
+              <Link href="/login">
+                <Button className={buttonVariants({})}>Sign in</Button>
+              </Link>
           </div>
         </div>
       </MaxWidthWrapper>
