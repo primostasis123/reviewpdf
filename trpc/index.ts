@@ -1,4 +1,4 @@
-import { Input } from "@/components/ui/input";
+import bycrypt from "bcrypt";
 import { privateProcedure, publicProcedure, router } from "./trpc";
 import { db } from "@/lib/db";
 import { TRPCError } from "@trpc/server";
@@ -43,18 +43,17 @@ export const appRouter = router({
         },
       });
 
-      let nextCursor: typeof cursor | undefined = undefined
+      let nextCursor: typeof cursor | undefined = undefined;
 
       if (messages.length > limit) {
-        const nextItem = messages.pop()
-        nextCursor = nextItem?.id
+        const nextItem = messages.pop();
+        nextCursor = nextItem?.id;
       }
 
       return {
         messages,
-        nextCursor
-      }
-
+        nextCursor,
+      };
     }),
 
   getFileUploadStatus: privateProcedure
@@ -83,6 +82,38 @@ export const appRouter = router({
       },
     });
   }),
+
+  createUser: publicProcedure
+    .input(
+      z.object({
+        names: z.string(),
+        email: z.string().email(),
+        password: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const user = await db.user.findFirst({
+        where: {
+          email : input.email
+        }
+      })
+
+      if (user) {
+        throw new TRPCError({ code: "CONFLICT" })
+      }
+
+      const hashedPassword = await bycrypt.hash(input.password, 5);
+
+      await db.user.create({
+        data: {
+          name: input.names,
+          email: input.email,
+          password:hashedPassword
+        }
+      })
+
+      return "user is successfully registered";
+    }),
 
   getFile: privateProcedure
     .input(z.object({ key: z.string() }))

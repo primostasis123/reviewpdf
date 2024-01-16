@@ -2,6 +2,7 @@ import { Icons } from "@/components/Icons";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Link from "next/link";
 
 export default function page() {
   return (
@@ -39,7 +40,7 @@ export default function page() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="block text-sm font-medium leading-6 text-blue-900"
+                  className="block text-sm font-medium leading-6"
                 />
               </div>
             </div>
@@ -71,6 +72,9 @@ export default function page() {
               <Button className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ">
                 Sign in
               </Button>
+            </div>
+            <div className="mt-2">
+              <Label > No account? <Link href="/registration" className="text-blue-500">Sign Up</Link></Label>
             </div>
           </div>
         </div>
