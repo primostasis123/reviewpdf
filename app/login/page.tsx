@@ -1,8 +1,10 @@
+"use client"
 import { Icons } from "@/components/Icons";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export default function page() {
   return (
@@ -17,7 +19,13 @@ export default function page() {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <div className="space-y-6">
-            <Button className="bg-black w-full">
+            <Button
+              type="button"
+              className="bg-black w-full"
+              onClick={() => {
+                signIn("google");
+              }}
+            >
               <Icons.google className="mr-2 h-4 w-4" />
               Continue with Google
             </Button>
@@ -74,7 +82,13 @@ export default function page() {
               </Button>
             </div>
             <div className="mt-2">
-              <Label > No account? <Link href="/registration" className="text-blue-500">Sign Up</Link></Label>
+              <Label>
+                {" "}
+                No account?{" "}
+                <Link href="/registration" className="text-blue-500">
+                  Sign Up
+                </Link>
+              </Label>
             </div>
           </div>
         </div>

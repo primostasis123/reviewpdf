@@ -9,7 +9,7 @@ import { trpc } from "../_trpc/client";
 import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-
+import { signIn } from "next-auth/react";
 export default function page() {
   const [names, setNames] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -20,7 +20,8 @@ export default function page() {
     onError: () => {
       return toast({
         title: "There was problem creating an account",
-        description: "The email has already been taken. Please try a different email.",
+        description:
+          "The email has already been taken. Please try a different email.",
         variant: "destructive",
       });
     },
@@ -54,7 +55,13 @@ export default function page() {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={handleSubmit}>
-            <Button className="bg-black w-full">
+            <Button
+              type="button"
+              onClick={() => {
+                signIn("google");
+              }}
+              className="bg-black w-full"
+            >
               <Icons.google className="mr-2 h-4 w-4" />
               Continue with Google
             </Button>
@@ -70,7 +77,7 @@ export default function page() {
             </div>
             <div>
               <Label htmlFor="names">Name</Label>
-              <div>
+              <div className="mt-1">
                 <Input
                   id="names"
                   name="names"
@@ -83,7 +90,7 @@ export default function page() {
             </div>
             <div>
               <Label htmlFor="email"> Email address</Label>
-              <div>
+              <div className="mt-1">
                 <Input
                   id="email"
                   name="email"
@@ -99,7 +106,7 @@ export default function page() {
               <div className="flex items-center justify-between">
                 <Label htmlFor="password"> Password</Label>
               </div>
-              <div>
+              <div className="mt-1">
                 <Input
                   id="password"
                   name="password"
