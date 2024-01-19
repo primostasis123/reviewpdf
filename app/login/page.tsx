@@ -1,12 +1,26 @@
-"use client"
+"use client";
 import { Icons } from "@/components/Icons";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function page() {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const searchParams = useSearchParams();
+  const error = searchParams.get("error");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const res = await signIn("credentials", {
+      email,
+      password,
+    });
+  };
   return (
     <div>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -18,7 +32,7 @@ export default function page() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <div className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <Button
               type="button"
               className="bg-black w-full"
@@ -49,6 +63,7 @@ export default function page() {
                   autoComplete="email"
                   required
                   className="block text-sm font-medium leading-6"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
@@ -72,12 +87,22 @@ export default function page() {
                   type="password"
                   autoComplete="current-password"
                   required
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>
-
+            {error ? (
+              <div>
+                <div className="flex items-center justify-between">
+                  <Label className="text-red-600">Your email or password were incorrect.</Label>
+                </div>
+              </div>
+            ) : null}
             <div>
-              <Button className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ">
+              <Button
+                type="submit"
+                className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
+              >
                 Sign in
               </Button>
             </div>
@@ -90,7 +115,7 @@ export default function page() {
                 </Link>
               </Label>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
