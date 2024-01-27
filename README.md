@@ -11,7 +11,7 @@ Built with the Next.js 14 App Router, tRPC, TypeScript, Prisma & Tailwind
 - 💳 Free & Pro Plan Using Stripe
 - 📄 A Beautiful And Highly Functional PDF Viewer
 - 🔄 Streaming API Responses in Real-Time
-- 🔒 Authentication Using Kinde
+- 🔒 Authentication Using Next Auth
 - 🎨 Clean, Modern UI Using 'shadcn-ui'
 - 🚀 Optimistic UI Updates for a Great UX
 - ⚡ Infinite Message Loading for Performance
