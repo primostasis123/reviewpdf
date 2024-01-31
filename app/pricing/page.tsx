@@ -21,6 +21,7 @@ export default async function page() {
       tagline: "For free users.",
       price: 0,
       quota: 1,
+      plan_id: "",
       features: [
         {
           text: "4MB file size limit",
@@ -57,6 +58,7 @@ export default async function page() {
       tagline: "For small pdf files.",
       price: 9,
       quota: 20,
+      plan_id: process.env.BASIC_PLAN!,
       features: [
         {
           text: "16MB file size limit",
@@ -93,6 +95,7 @@ export default async function page() {
       tagline: "For larger pdf files.",
       price: 12,
       quota: 40,
+      plan_id: process.env.PRO_PLAN!,
       features: [
         {
           text: "32MB file size limit",
@@ -139,7 +142,7 @@ export default async function page() {
 
         <div className="pt-12 grid grid-cols-1 gap-10 lg:grid-cols-3">
           <TooltipProvider>
-            {pricingItems.map(({ plan, tagline, price, quota, features }) => {
+            {pricingItems.map(({ plan, tagline, price, quota, features, plan_id }) => {
               return (
                 <div
                   key={plan}
@@ -233,7 +236,7 @@ export default async function page() {
                         <ArrowRight className="h-5 w-5 ml-1.5" />
                       </Link>
                     ) : session?.user ? (
-                      <UpgradeButton />
+                        <UpgradeButton plan_id={plan_id}/>
                     ) : (
                       <Link
                         href="/login"

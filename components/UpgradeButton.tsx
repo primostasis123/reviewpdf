@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -9,53 +9,57 @@ import {
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
 
-
 interface IButtonWrapper {
-    type : string
+    type: string;
+    plan_id : string
 }
-const ButtonWrapper = ({ type } : IButtonWrapper) => {
-    const [{ options }, dispatch] = usePayPalScriptReducer();
-	useEffect(() => {
-        dispatch({
-            type: "resetOptions",
-            value: {
-                ...options,
-                intent: "subscription",
-            },
-        });
-    }, [type]);
+const ButtonWrapper = ({ type, plan_id }: IButtonWrapper) => {
+  const [{ options }, dispatch] = usePayPalScriptReducer();
+  useEffect(() => {
+    dispatch({
+      type: "resetOptions",
+      value: {
+        ...options,
+        intent: "subscription",
+      },
+    });
+  }, [type]);
 
-	return (<PayPalButtons
-		createSubscription={(data, actions) => {
-			return actions.subscription
-				.create({
-					plan_id: "",
-				})
-				.then((orderId) => {
-					// Your code here after create the order
-					return orderId;
-				});
-		}}
-		style={{
-			label: "subscribe",
-		}}
-	/>);
+  return (
+    <PayPalButtons
+      createSubscription={(data, actions) => {
+        return actions.subscription
+          .create({
+            plan_id: plan_id
+          })
+          .then((orderId) => {
+            // Your code here after create the order
+            return orderId;
+          });
+      }}
+      style={{
+        label: "subscribe",
+      }}
+    />
+  );
+};
+
+interface IUpgradeButton {
+    plan_id: string;
 }
-
-
-
-
-const UpgradeButton = () => {
-    return (
-        <PayPalScriptProvider
-        options={{
-            clientId: "test",
-            components: "buttons",
-            intent: "subscription",
-            vault: true,
-        }}
+const UpgradeButton = ({ plan_id }: IUpgradeButton) => {
+         
+console.log(plan_id)
+  return (
+    <PayPalScriptProvider
+      options={{
+        clientId: process.env.CLIENT_ID!,
+        components: "buttons",
+        intent: "subscription",
+        vault: true,
+      }}
     >
-        <ButtonWrapper type="subscription" />
+        <ButtonWrapper type="subscription" plan_id={plan_id} />
     </PayPalScriptProvider>
   );
 };
