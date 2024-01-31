@@ -1,15 +1,57 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import UpgradeButton from "@/components/UpgradeButton";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { auth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
-import { Check, HelpCircle, Minus } from "lucide-react";
+import { ArrowRight, Check, HelpCircle, Minus } from "lucide-react";
+import Link from "next/link";
 
-export default function page() {
+export default async function page() {
+  const session = await auth();
+
   const pricingItems = [
+    {
+      plan: "Free",
+      tagline: "For free users.",
+      price: 0,
+      quota: 1,
+      features: [
+        {
+          text: "4MB file size limit",
+          footnote: "The maximum file size of a single PDF file.",
+        },
+        {
+          text: (
+            <a
+              href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them"
+              target="_blank"
+            >
+              <span className="underline text-sky-400">
+                4,096 tokens per response
+              </span>
+            </a>
+          ),
+          footnote: "Tokens can be thought of as pieces of words.",
+        },
+        {
+          text: "Mobile-friendly interface",
+        },
+        {
+          text: "Higher-quality responses",
+          footnote: "Better algorithmic responses for enhanced content quality",
+        },
+        {
+          text: "Email support",
+          negative: true,
+        },
+      ],
+    },
     {
       plan: "Basic",
       tagline: "For small pdf files.",
@@ -42,7 +84,7 @@ export default function page() {
         },
         {
           text: "Email support",
-          negative: true,
+          negative: false,
         },
       ],
     },
@@ -50,7 +92,7 @@ export default function page() {
       plan: "Pro",
       tagline: "For larger pdf files.",
       price: 12,
-      quota: 50,
+      quota: 40,
       features: [
         {
           text: "32MB file size limit",
@@ -85,7 +127,7 @@ export default function page() {
   ];
   return (
     <>
-      <MaxWidthWrapper className="mb-8 mt-24 text-center max-w-5xl">
+      <MaxWidthWrapper className="mb-8 mt-24 text-center max-w-7xl">
         <div className="mx-auto mb-10 sm:max-w-lg">
           <h1 className="text-6xl font-bold sm:text-7xl">Pricing</h1>
           <p className="mt-5 text-gray-600 sm:text-lg">
@@ -95,7 +137,7 @@ export default function page() {
           </p>
         </div>
 
-        <div className="pt-12 grid grid-cols-1 gap-10 lg:grid-cols-2">
+        <div className="pt-12 grid grid-cols-1 gap-10 lg:grid-cols-3">
           <TooltipProvider>
             {pricingItems.map(({ plan, tagline, price, quota, features }) => {
               return (
@@ -106,10 +148,11 @@ export default function page() {
                     "border border-gray-200": plan !== "Pro",
                   })}
                 >
-                  <div className="absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 px-3 py-2 text-sm font-medium text-white">
-                    Upgrade now
-                  </div>
-
+                  {plan !== "Free" ? (
+                    <div className="absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 px-3 py-2 text-sm font-medium text-white">
+                      Upgrade now
+                    </div>
+                  ) : null}
                   <div className="p-5">
                     <h3 className="my-3 text-center font-display text-3xl font-bold">
                       {plan}
@@ -178,30 +221,30 @@ export default function page() {
                   </ul>
                   <div className="border-t border-gray-200" />
                   <div className="p-5">
-                    {/* {plan === 'Free' ? (
-                        <Link
-                          href={
-                            user ? '/dashboard' : '/sign-in'
-                          }
-                          className={buttonVariants({
-                            className: 'w-full',
-                            variant: 'secondary',
-                          })}>
-                          {user ? 'Upgrade now' : 'Sign up'}
-                          <ArrowRight className='h-5 w-5 ml-1.5' />
-                        </Link>
-                      ) : user ? (
-                        <UpgradeButton />
-                      ) : (
-                        <Link
-                          href='/sign-in'
-                          className={buttonVariants({
-                            className: 'w-full',
-                          })}>
-                          {user ? 'Upgrade now' : 'Sign up'}
-                          <ArrowRight className='h-5 w-5 ml-1.5' />
-                        </Link>
-                      )} */}
+                    {plan === "Free" ? (
+                      <Link
+                        href={session?.user ? "/dashboard" : "/login"}
+                        className={buttonVariants({
+                          className: "w-full",
+                          variant: "secondary",
+                        })}
+                      >
+                        {session?.user ? "Upgrade now" : "Sign up"}
+                        <ArrowRight className="h-5 w-5 ml-1.5" />
+                      </Link>
+                    ) : session?.user ? (
+                      <UpgradeButton />
+                    ) : (
+                      <Link
+                        href="/login"
+                        className={buttonVariants({
+                          className: "w-full",
+                        })}
+                      >
+                        {session?.user ? "Upgrade now" : "Sign up"}
+                        <ArrowRight className="h-5 w-5 ml-1.5" />
+                      </Link>
+                    )}
                   </div>
                 </div>
               );

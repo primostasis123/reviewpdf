@@ -8,7 +8,7 @@ Built with the Next.js 14 App Router, tRPC, TypeScript, Prisma & Tailwind
 
 - 🛠️ Complete SaaS Built From Scratch
 - 💻 Beautiful Landing Page & Pricing Page Included
-- 💳 Free & Pro Plan Using Stripe
+- 💳 Free & Pro Plan Using Paypal
 - 📄 A Beautiful And Highly Functional PDF Viewer
 - 🔄 Streaming API Responses in Real-Time
 - 🔒 Authentication Using Next Auth
