@@ -153,6 +153,22 @@ export const appRouter = router({
 
       return file;
     }),
+  
+  updateSubscription: privateProcedure
+    .input(z.object({ subscriptionID: z.string(), status: z.string()}))
+    .mutation(async ({ ctx, input }) => {
+      const { userId } = ctx;
+      await db.user.update({
+        where: {
+          id : userId
+        },
+        data: {
+          subscriptionId: input.subscriptionID,
+          status : input.status
+        },
+      })
+    })
+    
 });
 
 export type AppRouter = typeof appRouter;

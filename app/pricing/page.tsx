@@ -14,6 +14,8 @@ import Link from "next/link";
 
 export default async function page() {
   const session = await auth();
+  const client_id = process.env.PAYPAL_CLIENT_ID!
+  const secretID = process.env.PAYPAL_SECRET_ID!
 
   const pricingItems = [
     {
@@ -236,7 +238,7 @@ export default async function page() {
                         <ArrowRight className="h-5 w-5 ml-1.5" />
                       </Link>
                     ) : session?.user ? (
-                        <UpgradeButton plan_id={plan_id}/>
+                        <UpgradeButton  client_id={client_id} plan_id={plan_id}/>
                     ) : (
                       <Link
                         href="/login"
