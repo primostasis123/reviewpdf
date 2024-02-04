@@ -7,8 +7,13 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { getUserSubscriptionPlan } from "@/lib/paypal";
 
-export const Dashboard = () => {
+interface IDashboard {
+  subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>
+}
+
+export const Dashboard = ({subscriptionPlan}: IDashboard) => {
   const [currentDeletingFile, setCurrentDeletingFile] = useState<string | null>(null)
   const utils = trpc.useUtils();
   const { data: files, isLoading } = trpc.getUserFiles.useQuery();

@@ -2,60 +2,48 @@
 import {
   PayPalScriptProvider,
   PayPalButtons,
-  usePayPalScriptReducer
 } from "@paypal/react-paypal-js";
-
+import { useRouter } from "next/navigation";
 import { trpc } from "@/app/_trpc/client";
 import { useToast } from "./ui/use-toast";
-import { useEffect } from "react";
 
 interface IButtonWrapper {
   type: string;
-  plan_id : string
+  plan_id: string;
 }
 
 const ButtonWrapper = ({ type, plan_id }: IButtonWrapper) => {
-  // const [{ options }, dispatch] = usePayPalScriptReducer();
-
-  // useEffect(() => {
-  //   dispatch({
-  //     type: "resetOptions",
-  //     value: {
-  //       ...options,
-  //       intent: "subscription",
-  //     },
-  //   });
-  // }, [type]);
-
-  const { toast } = useToast()
+  const router = useRouter();
+  const { toast } = useToast();
   const { mutate: updateSub } = trpc.updateSubscription.useMutation({
     onSuccess: () => {
       toast({
-        title: 'Successfully Subscribed!!',
-        description: 'Please enjoy your subscription',
-      })
-    }
-  })
+        title: "Successfully Subscribed!!",
+        description: "Please enjoy your subscription",
+      });
+      router.push("/dashboard");
+    },
+  });
 
   return (
     <PayPalButtons
-    options={{vault: true}}
+      options={{ vault: true }}
       createSubscription={(data, actions) => {
         return actions.subscription
           .create({
-            plan_id: plan_id
+            plan_id: plan_id,
           })
           .then((orderId) => {
             return orderId;
           });
       }}
-      // @ts-ignore 
+      // @ts-ignore
       onApprove={(data, actions) => {
         // Capture the funds from the transaction
         // if (actions.subscription) {
         return actions.subscription?.get().then(function (details) {
-          updateSub({ subscriptionID: data.subscriptionID!, status: "ACTIVE" })
-          });
+          updateSub({ subscriptionID: data.subscriptionID!, status: "ACTIVE" });
+        });
         // } else {
         //   return Promise.resolve();
         // }
@@ -69,9 +57,9 @@ const ButtonWrapper = ({ type, plan_id }: IButtonWrapper) => {
 
 interface IUpgradeButton {
   plan_id: string;
-  client_id:string
+  client_id: string;
 }
-const UpgradeButton = ({ plan_id, client_id }: IUpgradeButton) => { 
+const UpgradeButton = ({ plan_id, client_id }: IUpgradeButton) => {
   return (
     <PayPalScriptProvider
       options={{
@@ -81,7 +69,7 @@ const UpgradeButton = ({ plan_id, client_id }: IUpgradeButton) => {
         vault: true,
       }}
     >
-        <ButtonWrapper type="subscription" plan_id={plan_id} />
+      <ButtonWrapper type="subscription" plan_id={plan_id} />
     </PayPalScriptProvider>
   );
 };
