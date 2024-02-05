@@ -167,8 +167,21 @@ export const appRouter = router({
           status : input.status
         },
       })
-    })
-    
+    }),
+
+    getFilesCount: privateProcedure.query(async ({ ctx }) => {
+      const { userId } = ctx;
+      const currentDate = new Date();
+      return await db.file.count({
+        where: {
+          userId,
+          createdAt: {
+            gte: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
+            lt: new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1),
+          },
+        },
+      });
+    }),
 });
 
 export type AppRouter = typeof appRouter;

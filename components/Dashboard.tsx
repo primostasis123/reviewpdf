@@ -8,38 +8,51 @@ import { format } from "date-fns";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { getUserSubscriptionPlan } from "@/lib/paypal";
-
+import { useToast } from "./ui/use-toast";
+import { LimitButton } from "./LimitButton";
+import { number } from "zod";
 interface IDashboard {
-  subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>
+  subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
 }
 
-export const Dashboard = ({subscriptionPlan}: IDashboard) => {
-  const [currentDeletingFile, setCurrentDeletingFile] = useState<string | null>(null)
+export const Dashboard = ({ subscriptionPlan }: IDashboard) => {
+  const [currentlyDeletingFile, setCurrentlyDeletingFile] = useState<
+    string | null
+  >(null);
+  const { toast } = useToast();
   const utils = trpc.useUtils();
+
   const { data: files, isLoading } = trpc.getUserFiles.useQuery();
+  const { data: count } = trpc.getFilesCount.useQuery();
   const { mutate: deleteFile } = trpc.deleteFile.useMutation({
-    onSuccess:() => {
-      utils.getUserFiles.invalidate()
+    onSuccess: () => {
+      utils.getUserFiles.invalidate();
     },
-    onMutate({id}) {
-      setCurrentDeletingFile(id)
+    onMutate({ id }) {
+      setCurrentlyDeletingFile(id);
     },
     onSettled() {
-      setCurrentDeletingFile(null)
-    }
+      setCurrentlyDeletingFile(null);
+    },
   });
-
 
   return (
     <main className="mx-auto max-w-7xl md:p-10">
       <div className="mt-8 flex flex-col items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0">
         <h1 className="mb-3 font-bold text-5xl text-gray-900">My Files</h1>
-        <UploadButton />
+        {subscriptionPlan.plan === "Free" && count! >= 1 ? (
+          <LimitButton />
+        ) : subscriptionPlan.plan === "Basic" && count! >= 20 ? (
+          <LimitButton />
+        ) : subscriptionPlan.plan === "Pro" && count! >= 50 ? (
+          <LimitButton />
+        ) : (
+                <UploadButton isSubscribed={subscriptionPlan.isSubscribed} plan={subscriptionPlan.plan} />
+        )}
       </div>
-
       {/* display all user files */}
       {files && files?.length !== 0 ? (
-        <ul className="mt-8 grid grid-cols-1 gap-6 divide-y  divide-zinc-200 md:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-8 grid grid-cols-1 gap-6 divide-y divide-zinc-200 md:grid-cols-2 lg:grid-cols-3">
           {files
             .sort(
               (a, b) =>
@@ -49,7 +62,7 @@ export const Dashboard = ({subscriptionPlan}: IDashboard) => {
             .map((file) => (
               <li
                 key={file.id}
-                className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white transition hover:shadow-lg"
+                className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow transition hover:shadow-lg"
               >
                 <Link
                   href={`/dashboard/${file.id}`}
@@ -66,18 +79,30 @@ export const Dashboard = ({subscriptionPlan}: IDashboard) => {
                     </div>
                   </div>
                 </Link>
+
                 <div className="px-6 mt-4 grid grid-cols-3 place-items-center py-2 gap-6 text-xs text-zinc-500">
                   <div className="flex items-center gap-2">
                     <Plus className="h-4 w-4" />
-                    {format(new Date(file.createdAt), "MMM yyy")}
+                    {format(new Date(file.createdAt), "MMM yyyy")}
                   </div>
+
                   <div className="flex items-center gap-2">
-                    <MessageSquare className="h-4 w-4" />
-                    mocked
+                    {/* <MessageSquare className="h-4 w-4" /> */}
+                    {/* mocked */}
                   </div>
-                  <Button onClick={() => deleteFile({ id: file.id })} size="sm" className="w-full" variant="destructive">
-                    {currentDeletingFile === file.id ? (<Loader2 className="h-4 w-4 animate-spin"/>): <Trash className="h-4 w-4" />}
-                  </Button>
+
+                  {/* <Button
+                    onClick={() => deleteFile({ id: file.id })}
+                    size="sm"
+                    className="w-full"
+                    variant="destructive"
+                  >
+                    {currentlyDeletingFile === file.id ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Trash className="h-4 w-4" />
+                    )}
+                  </Button> */}
                 </div>
               </li>
             ))}
@@ -87,7 +112,7 @@ export const Dashboard = ({subscriptionPlan}: IDashboard) => {
       ) : (
         <div className="mt-16 flex flex-col items-center gap-2">
           <Ghost className="h-8 w-8 text-zinc-800" />
-          <h3 className="font-semibold text-xl"> Pretty empty around here</h3>
+          <h3 className="font-semibold text-xl">Pretty empty around here</h3>
           <p>Let&apos;s upload your first PDF.</p>
         </div>
       )}

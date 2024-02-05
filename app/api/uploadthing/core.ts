@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { Pinecone } from "@pinecone-database/pinecone"; 
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { OpenAIEmbeddings } from "@langchain/openai";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
 
 const f = createUploadthing();
