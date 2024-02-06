@@ -1,8 +1,6 @@
 import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { Button, buttonVariants } from "./ui/button";
-import { LoginDialog } from "./LoginDialog";
-import { auth } from "@/lib/auth";
 
 const Navbar = () => {
   return (
