@@ -27,8 +27,7 @@ export default function Home() {
             size: "lg",
             className: "mt-5",
           })}
-          href="/dashboard"
-          target="_blank"
+          href="/registration"
         >
           {" "}
           Get Started <ArrowRight className="ml-2 h-5 w-5" />
@@ -96,19 +95,17 @@ export default function Home() {
         {/*steps*/}
         <ol className="my-8 space-y-4 pt-8 md:flex md:space-x-12 md:space-y-0">
           <li className="md:flex-1">
-          <div className='flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4'>
-              <span className='text-sm font-medium text-blue-600'>
-                Step 1
-              </span>
-              <span className='text-xl font-semibold'>
+            <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
+              <span className="text-sm font-medium text-blue-600">Step 1</span>
+              <span className="text-xl font-semibold">
                 Sign up for an account
               </span>
-              <span className='mt-2 text-zinc-700'>
-                Either starting out with a free plan or
-                choose our{' '}
+              <span className="mt-2 text-zinc-700">
+                Either starting out with a free plan or choose our{" "}
                 <Link
-                  href='/pricing'
-                  className='text-blue-700 underline underline-offset-2'>
+                  href="/pricing"
+                  className="text-blue-700 underline underline-offset-2"
+                >
                   pro plan
                 </Link>
                 .
@@ -117,43 +114,41 @@ export default function Home() {
           </li>
 
           <li className="md:flex-1">
-          <div className='flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4'>
-              <span className='text-sm font-medium text-blue-600'>
-                Step 2
-              </span>
-              <span className='text-xl font-semibold'>
+            <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
+              <span className="text-sm font-medium text-blue-600">Step 2</span>
+              <span className="text-xl font-semibold">
                 Upload your PDF file
               </span>
-              <span className='mt-2 text-zinc-700'>
-                We&apos;ll process your file make it ready for you to review and chat with
+              <span className="mt-2 text-zinc-700">
+                We&apos;ll process your file make it ready for you to review and
+                chat with
               </span>
             </div>
-          </li>      
+          </li>
 
           <li className="md:flex-1">
-          <div className='flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4'>
-              <span className='text-sm font-medium text-blue-600'>
-                Step 3
-              </span>
-              <span className='text-xl font-semibold'>
+            <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
+              <span className="text-sm font-medium text-blue-600">Step 3</span>
+              <span className="text-xl font-semibold">
                 Start asking questions
               </span>
-              <span className='mt-2 text-zinc-700'>
-                It&apos;s that simple. Try out ReviewPDF today - it really take less than a minute.
+              <span className="mt-2 text-zinc-700">
+                It&apos;s that simple. Try out ReviewPDF today - it really take
+                less than a minute.
               </span>
             </div>
-          </li>      
+          </li>
         </ol>
-        <div className='mx-auto max-w-6xl px-6 lg:px-8'>
-          <div className='mt-16 flow-root sm:mt-24'>
-            <div className='-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4'>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="mt-16 flow-root sm:mt-24">
+            <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
               <Image
-                src='/file-upload-preview.jpg'
-                alt='uploading preview'
+                src="/file-upload-preview.jpg"
+                alt="uploading preview"
                 width={1419}
                 height={732}
                 quality={100}
-                className='rounded-md bg-white p-2 sm:p-8 md:p-20 shadow-2xl ring-1 ring-gray-900/10'
+                className="rounded-md bg-white p-2 sm:p-8 md:p-20 shadow-2xl ring-1 ring-gray-900/10"
               />
             </div>
           </div>

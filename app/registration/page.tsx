@@ -10,7 +10,8 @@ import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-export default function page() {
+import { auth } from "@/lib/auth";
+export  default  function page() {
   const [names, setNames] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");

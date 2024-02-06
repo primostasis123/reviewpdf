@@ -83,6 +83,23 @@ export const appRouter = router({
     });
   }),
 
+  cancelSubscription: privateProcedure
+    .input(z.object({ token: z.string(), subscriptionId: z.string() }))
+    .mutation(async ({ input }) => {
+      const response = await fetch(`${process.env.PAYPAL_URL_API}/v1/billing/subscriptions/${input.subscriptionId}/cancel`, {
+        method: 'POST',
+          headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${input.token}`
+          }
+      });
+      if (!response.ok) {
+        throw new TRPCError({ code: "BAD_REQUEST" });
+      }
+      const data = response.json()
+      return "subscription cancelled successfully";
+
+    }),
   createUser: publicProcedure
     .input(
       z.object({
@@ -155,7 +172,7 @@ export const appRouter = router({
     }),
   
   updateSubscription: privateProcedure
-    .input(z.object({ subscriptionID: z.string(), status: z.string()}))
+    .input(z.object({ subscriptionID: z.string()}))
     .mutation(async ({ ctx, input }) => {
       const { userId } = ctx;
       await db.user.update({
@@ -164,7 +181,6 @@ export const appRouter = router({
         },
         data: {
           subscriptionId: input.subscriptionID,
-          status : input.status
         },
       })
     }),

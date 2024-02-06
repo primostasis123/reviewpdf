@@ -42,7 +42,7 @@ const ButtonWrapper = ({ type, plan_id }: IButtonWrapper) => {
         // Capture the funds from the transaction
         // if (actions.subscription) {
         return actions.subscription?.get().then(function (details) {
-          updateSub({ subscriptionID: data.subscriptionID!, status: "ACTIVE" });
+          updateSub({ subscriptionID: data.subscriptionID!});
         });
         // } else {
         //   return Promise.resolve();

@@ -13,10 +13,12 @@ export async function getUserSubscriptionPlan() {
 
   if (!dbUser?.subscriptionId) {
     return {
+      subscriptionId : null,
       plan: "Free",
       isSubscribed: false,
       isCanceled: false,
       periodEnd: null,
+      token: null,
     };
   }
 
@@ -50,11 +52,13 @@ export async function getUserSubscriptionPlan() {
   // Get the current date
   let currentDate = new Date(subscriptionData.start_time);
   currentDate.setMonth(currentDate.getMonth() + 1);
-
+ 
   return {
+    subscriptionId : subscriptionId,
     plan: subscriptionData.plan_id === process.env.PRO_PLAN ? "Pro" : "Basic",
     isSubscribed: true,
     isCanceled: subscriptionData.status === "ACTIVE" ? false : true,
-    periodEnd : subscriptionData.status === "ACTIVE" ? null : currentDate
+    periodEnd: subscriptionData.status === "ACTIVE" ? subscriptionData.billing_info.next_billing_time : currentDate,
+    token : data.access_token
   };
 }
