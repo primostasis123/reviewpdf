@@ -4,8 +4,10 @@ import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import dashboard from "../public/dashboard-preview.jpg";
+import { auth } from "@/lib/auth";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth()
   return (
     <>
       <MaxWidthWrapper className="mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center">
@@ -27,7 +29,7 @@ export default function Home() {
             size: "lg",
             className: "mt-5",
           })}
-          href="/registration"
+          href={ !session ? "/registration" : "/dashboard"}
         >
           {" "}
           Get Started <ArrowRight className="ml-2 h-5 w-5" />
