@@ -10,8 +10,8 @@ import {
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import Image from "next/image";
 import { Icons } from "./Icons";
-import { Gem } from 'lucide-react'
-import Link from 'next/link'
+import { Gem } from "lucide-react";
+import Link from "next/link";
 import Logout from "./Logout";
 
 interface IUserAccountNav {
@@ -76,8 +76,8 @@ const UserAccountNav = async ({ email, imageUrl, name }: IUserAccountNav) => {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem className="cursor-pointer">
-                  {/* <LogoutLink>Log out</LogoutLink> */}
-           <Logout/>
+          {/* <LogoutLink>Log out</LogoutLink> */}
+          <Logout />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

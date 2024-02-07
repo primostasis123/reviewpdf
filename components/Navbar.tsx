@@ -3,6 +3,7 @@ import MaxWidthWrapper from "./MaxWidthWrapper";
 import { Button, buttonVariants } from "./ui/button";
 import { auth } from "@/lib/auth";
 import UserAccountNav from "./UserAccountNav";
+import MobileNav from "./MobileNav";
 
 const Navbar = async () => {
   const session = await auth();
@@ -13,7 +14,7 @@ const Navbar = async () => {
           <Link href="/" className="flex z-40 font-semibold">
             <span>ReviewPDF</span>
           </Link>
-          {/** todo : add mobile navbar */}
+          <MobileNav isAuth={!!session} />
           <div className="hidden items-center space-x-4 sm:flex">
             <Link
               href="/pricing"
