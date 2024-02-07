@@ -15,13 +15,18 @@ import Link from "next/link";
 import Logout from "./Logout";
 
 interface IUserAccountNav {
+  isSubscribed: boolean;
   email: string | undefined;
   imageUrl: string;
   name: string;
 }
 
-const UserAccountNav = async ({ email, imageUrl, name }: IUserAccountNav) => {
-  const subscriptionPlan = await getUserSubscriptionPlan();
+const UserAccountNav = async ({
+  isSubscribed,
+  email,
+  imageUrl,
+  name,
+}: IUserAccountNav) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="overflow-visible">
@@ -64,7 +69,7 @@ const UserAccountNav = async ({ email, imageUrl, name }: IUserAccountNav) => {
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
-          {subscriptionPlan?.isSubscribed ? (
+          {isSubscribed ? (
             <Link href="/dashboard/billing">Manage Subscription</Link>
           ) : (
             <Link href="/pricing">

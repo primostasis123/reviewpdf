@@ -44,7 +44,7 @@ export function constructMetadata({
     //   creator: "@primostasis",
     // },
     icons,
-    // metadataBase: new URL("https://quill-jet.vercel.app"),
+    metadataBase: new URL("https://review-pdf.vercel.app"),
     // themeColor: "#FFF",
     robots: {
       index: false,

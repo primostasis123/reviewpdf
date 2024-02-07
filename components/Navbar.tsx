@@ -4,9 +4,11 @@ import { Button, buttonVariants } from "./ui/button";
 import { auth } from "@/lib/auth";
 import UserAccountNav from "./UserAccountNav";
 import MobileNav from "./MobileNav";
+import { getUserSubscriptionPlan } from "@/lib/paypal";
 
 const Navbar = async () => {
   const session = await auth();
+  const subscriptionPlan = await getUserSubscriptionPlan();
   return (
     <nav className="sticky h-14 inset-x-0 top-0 z-30 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
       <MaxWidthWrapper>
@@ -14,7 +16,7 @@ const Navbar = async () => {
           <Link href="/" className="flex z-40 font-semibold">
             <span>ReviewPDF</span>
           </Link>
-          <MobileNav isAuth={!!session} />
+          <MobileNav isAuth={!!session} isSubscribed={subscriptionPlan.isSubscribed} />
           <div className="hidden items-center space-x-4 sm:flex">
             <Link
               href="/pricing"
@@ -43,7 +45,7 @@ const Navbar = async () => {
                 >
                   Dashboard
                   </Link> */}
-                  <UserAccountNav email={session.user.email!} imageUrl={session.user.image!} name={session.user.name!} />
+                  <UserAccountNav isSubscribed={subscriptionPlan.isSubscribed } email={session.user.email!} imageUrl={session.user.image!} name={session.user.name!} />
               </>
             )}
           </div>

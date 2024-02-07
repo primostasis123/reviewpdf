@@ -1,12 +1,18 @@
 "use client";
 
-import { ArrowRight, Menu } from "lucide-react";
+import { ArrowRight, Gem, Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logout from "./Logout";
 
-const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
+const MobileNav = ({
+  isAuth,
+  isSubscribed,
+}: {
+  isAuth: boolean;
+  isSubscribed: boolean;
+}) => {
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const toggleOpen = () => setOpen((prev) => !prev);
@@ -38,7 +44,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                 <li>
                   <Link
                     onClick={() => closeOnCurrent("/registration")}
-                    className="flex items-center w-full font-semibold text-green-600"
+                    className="flex items-center w-full  text-green-600"
                     href="/registration"
                   >
                     Get started
@@ -49,7 +55,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                 <li>
                   <Link
                     onClick={() => closeOnCurrent("/login")}
-                    className="flex items-center w-full font-semibold"
+                    className="flex items-center w-full "
                     href="/login"
                   >
                     Sign in
@@ -71,15 +77,24 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                 <li>
                   <Link
                     onClick={() => closeOnCurrent("/dashboard")}
-                    className="flex items-center w-full font-semibold"
+                    className="flex items-center w-full"
                     href="/dashboard"
                   >
                     Dashboard
                   </Link>
                 </li>
+                <li>
+                  {isSubscribed ? (
+                    <Link href="/dashboard/billing" className="flex items-center w-full " onClick={() => closeOnCurrent("/dashboard/billing")}>Manage Subscription</Link>
+                  ) : (
+                    <Link href="/pricing" className="flex items-center w-full " onClick={() => closeOnCurrent("/pricing")}>
+                      Upgrade <Gem className="text-blue-600 h-4 w-4 ml-1.5" />
+                    </Link>
+                  )}
+                </li>
                 <li className="my-3 h-px w-full bg-gray-300" />
                 <li>
-                  <div className="flex items-center w-full font-semibold">
+                  <div className="flex items-center w-full ">
                     <Logout />
                   </div>
                 </li>

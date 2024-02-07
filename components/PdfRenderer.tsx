@@ -100,7 +100,7 @@ export const PdfRenderer = ({ url }: PdfRendererProps) => {
                 }
               }}
             />
-            <p className="text-zinc-700 text-sm space-x-1">
+            <p className="text-zinc-700 text-sm space-x-1 py-4">
               <span>/</span>
               <span>{numPages ?? "x"}</span>
             </p>
@@ -116,6 +116,7 @@ export const PdfRenderer = ({ url }: PdfRendererProps) => {
             }}
             variant="ghost"
             aria-label="next page"
+            size="custom"
           >
             <ChevronUp className="h-4 w-4" />
           </Button>
@@ -124,7 +125,7 @@ export const PdfRenderer = ({ url }: PdfRendererProps) => {
         <div className="space-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button className="gap-1.5" aria-label="zoom" variant="ghost">
+              <Button  aria-label="zoom" variant="ghost" size="custom">
                 <Search className="h-4 w-4" />
                 {scale * 100}%
                 <ChevronDown className="h-3 w-3 opacity-50" />
@@ -150,6 +151,7 @@ export const PdfRenderer = ({ url }: PdfRendererProps) => {
             onClick={() => setRotation((prev) => prev + 90)}
             variant="ghost"
             aria-label="rotate 90 degrees"
+            size="custom"
           >
             <RotateCw className="h-4 w-4" />
           </Button>
