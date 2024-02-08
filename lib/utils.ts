@@ -27,15 +27,15 @@ export function constructMetadata({
   return {
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      images: [
-        {
-          url: image,
-        },
-      ],
-    },
+    // openGraph: {
+    //   title,
+    //   description,
+    //   images: [
+    //     {
+    //       url: image,
+    //     },
+    //   ],
+    // },
     // twitter: {
     //   card: "summary_large_image",
     //   title,
@@ -44,7 +44,7 @@ export function constructMetadata({
     //   creator: "@primostasis",
     // },
     icons,
-    metadataBase: new URL("https://review-pdf.vercel.app"),
+    // metadataBase: new URL("https://review-pdf.vercel.app"),
     // themeColor: "#FFF",
     robots: {
       index: false,

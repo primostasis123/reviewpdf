@@ -73,7 +73,7 @@ export default async function page() {
               target="_blank"
             >
               <span className="underline text-sky-400">
-                4,096 tokens per response
+                16,385 tokens per response
               </span>
             </a>
           ),

@@ -50,15 +50,29 @@ export async function getUserSubscriptionPlan() {
 
   const subscriptionData = await subscriptionResponse.json();
   // Get the current date
-  let currentDate = new Date(subscriptionData.start_time);
-  currentDate.setMonth(currentDate.getMonth() + 1);
- 
+  const periodEnd = new Date(subscriptionData.start_time);
+  periodEnd.setMonth(periodEnd.getMonth() + 1);
+  const currentDate = new Date()
+
+  if (periodEnd <= currentDate) {
+    if (subscriptionData.status === "CANCELLED") {
+      return {
+        subscriptionId : null,
+        plan: "Free",
+        isSubscribed: false,
+        isCanceled: false,
+        periodEnd: null,
+        token: null,
+      };
+    }
+  }
+  
   return {
     subscriptionId : subscriptionId,
     plan: subscriptionData.plan_id === process.env.PRO_PLAN ? "Pro" : "Basic",
     isSubscribed: true,
     isCanceled: subscriptionData.status === "ACTIVE" ? false : true,
-    periodEnd: subscriptionData.status === "ACTIVE" ? subscriptionData.billing_info.next_billing_time : currentDate,
+    periodEnd: subscriptionData.status === "ACTIVE" ? subscriptionData.billing_info.next_billing_time : periodEnd,
     token : data.access_token
   };
 }
