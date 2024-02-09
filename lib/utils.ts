@@ -13,8 +13,8 @@ export function absoluteUrl(path: string) {
 }
 
 export function constructMetadata({
-  title = "ReviewPDF - Summarize your documents, instantly answer questions, and understand research easily with AI",
-  description = "Whether you're a researcher, dealing with business contracts, or a student, ReviewPDF can help you extract valuable insights from your PDFs and documents. It's your personal PDF assistant, delivering information at your fingertips!",
+  title = "Summarize your documents, answer questions instantly, and easily comprehend research using AI with ReviewPDF",
+  description = "Whether you're a researcher, dealing with business contracts, or a student, ReviewPDF can help you extract valuable insights from your PDFs and documents. It's your personal PDF assistant, delivering information readily accessible!",
   image = "/thumbnail.png",
   icons = "/favicon.ico",
 }: {
