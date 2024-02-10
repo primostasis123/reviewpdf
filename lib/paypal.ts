@@ -1,11 +1,13 @@
 import { auth } from "@/lib/auth";
 import { db } from "./db";
+
 export async function getUserSubscriptionPlan() {
+
   const session = await auth();
   const clientId = process.env.PAYPAL_CLIENT_ID;
   const clientSecret = process.env.PAYPAL_SECRET_ID;
   const url = process.env.PAYPAL_URL_API
-  
+
   const dbUser = await db.user.findFirst({
     where: {
       id: session?.user.id,
@@ -29,7 +31,7 @@ export async function getUserSubscriptionPlan() {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Basic ${btoa(`AbEaJSSvLTzjcZJylDGlEQ5fQgUHzfkjlp4B9aGUgGEQT5T7qAVVBSDoY2GFmx_2Ae8QZzlQ1R8F9eaN:EDOyZe3RN7TSlyVAlkIixLsS-G8cu5zTpGGonwl3amXM0Q_EdHglnrwVxkiO6bjKdMsJgq-m1I0nXgj5`)}`,
+        Authorization: `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
       },
       body: "grant_type=client_credentials",
     }
