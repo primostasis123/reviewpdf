@@ -22,17 +22,17 @@ export async function getUserSubscriptionPlan() {
     };
   }
 
-  const response = await fetch(
-    `${process.env.PAYPAL_URL_API}/v1/oauth2/token`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
-      },
-      body: "grant_type=client_credentials",
-    }
-  );
+  // const response = await fetch(
+  //   `${process.env.PAYPAL_URL_API}/v1/oauth2/token`,
+  //   {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/x-www-form-urlencoded",
+  //       Authorization: `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
+  //     },
+  //     body: "grant_type=client_credentials",
+  //   }
+  // );
 
 
   return {
