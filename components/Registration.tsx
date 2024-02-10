@@ -19,11 +19,14 @@ const Registration = () => {
   const router = useRouter();
   const [isGoogle, setIsGoogle] = useState<boolean>(false);
   const { mutate: register, isLoading } = trpc.createUser.useMutation({
-    onError: () => {
+    onError: (error) => {
+      let message = "The email has already been taken. Please try a different email."
+      if (error.message !== "CONFLICT") {
+        message =  "Please enter atleast 6 characters"
+      }
       return toast({
         title: "There was problem creating an account",
-        description:
-          "The email has already been taken. Please try a different email.",
+        description: message,
         variant: "destructive",
       });
     },
