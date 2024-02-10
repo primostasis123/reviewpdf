@@ -20,7 +20,7 @@ const MobileNav = ({
   const pathname = usePathname();
 
   useEffect(() => {
-    if (isOpen) toggleOpen();
+    toggleOpen();
   }, [pathname]);
 
   const closeOnCurrent = (href: string) => {
