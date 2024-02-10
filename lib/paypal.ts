@@ -1,10 +1,27 @@
 import { auth } from "@/lib/auth";
-// import { db } from "./db";
+import { db } from "./db";
 export async function getUserSubscriptionPlan() {
   const session = await auth();
   const clientId = process.env.PAYPAL_CLIENT_ID;
   const clientSecret = process.env.PAYPAL_SECRET_ID;
-  
+
+  const dbUser = await db.user.findFirst({
+    where: {
+      id: session?.user.id,
+    },
+  });
+
+  if (!dbUser?.subscriptionId) {
+    return {
+      subscriptionId : null,
+      plan: "Free",
+      isSubscribed: false,
+      isCanceled: false,
+      periodEnd: null,
+      token: null,
+    };
+  }
+
   return {
     subscriptionId : null,
     plan: "Free",
@@ -13,26 +30,6 @@ export async function getUserSubscriptionPlan() {
     periodEnd: null,
     token: null,
   };
-
-
-
-
-  // const dbUser = await db.user.findFirst({
-  //   where: {
-  //     id: session?.user.id,
-  //   },
-  // });
-
-  // if (!dbUser?.subscriptionId) {
-  //   return {
-  //     subscriptionId : null,
-  //     plan: "Free",
-  //     isSubscribed: false,
-  //     isCanceled: false,
-  //     periodEnd: null,
-  //     token: null,
-  //   };
-  // }
 
   // const response = await fetch(
   //   `${process.env.PAYPAL_URL_API}/v1/oauth2/token`,
