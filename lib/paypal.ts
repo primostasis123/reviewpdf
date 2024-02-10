@@ -4,7 +4,8 @@ export async function getUserSubscriptionPlan() {
   const session = await auth();
   const clientId = process.env.PAYPAL_CLIENT_ID;
   const clientSecret = process.env.PAYPAL_SECRET_ID;
-
+  const url = process.env.PAYPAL_URL_API
+  
   const dbUser = await db.user.findFirst({
     where: {
       id: session?.user.id,
@@ -23,7 +24,7 @@ export async function getUserSubscriptionPlan() {
   }
 
   const response = await fetch(
-    `https://api.sandbox.paypal.com/v1/oauth2/token`,
+    `${url}/v1/oauth2/token`,
     {
       method: "POST",
       headers: {
