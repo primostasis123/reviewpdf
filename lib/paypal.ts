@@ -1,6 +1,7 @@
-// import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 // import { db } from "./db";
 export async function getUserSubscriptionPlan() {
+  const session = await auth();
   return {
     subscriptionId : null,
     plan: "Free",
@@ -11,8 +12,6 @@ export async function getUserSubscriptionPlan() {
   };
 
 
-
-  // const session = await auth();
   // const clientId = process.env.PAYPAL_CLIENT_ID;
   // const clientSecret = process.env.PAYPAL_SECRET_ID;
 
