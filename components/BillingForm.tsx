@@ -22,21 +22,21 @@ interface IBillingForm {
 
 const BillingForm = ({ subscriptionPlan }: IBillingForm) => {
   const router = useRouter();
-  // const {
-  //   mutate: cancelSubscription,
-  //   isLoading,
-  //   error,
-  // } = trpc.cancelSubscription.useMutation({
-  //   onError: (error) => {
-  //   },
-  //   onSuccess: () => {
-  //     router.refresh();
-  //     return toast({
-  //       title: "Successfull",
-  //       description: "Plan has been cancelled",
-  //     });
-  //   },
-  // });
+  const {
+    mutate: cancelSubscription,
+    isLoading,
+    error,
+  } = trpc.cancelSubscription.useMutation({
+    onError: (error) => {
+    },
+    onSuccess: () => {
+      router.refresh();
+      return toast({
+        title: "Successfull",
+        description: "Plan has been cancelled",
+      });
+    },
+  });
 
   return (
     <MaxWidthWrapper className="max-w-5xl">
@@ -46,10 +46,10 @@ const BillingForm = ({ subscriptionPlan }: IBillingForm) => {
           e.preventDefault();
           if (subscriptionPlan.isSubscribed && !subscriptionPlan.isCanceled) {
             if (confirm("Are you sure you want to cancel the plan?") == true) {
-              // cancelSubscription({
-              //   token: subscriptionPlan.token!,
-              //   subscriptionId: subscriptionPlan.subscriptionId!,
-              // });
+              cancelSubscription({
+                token: subscriptionPlan.token!,
+                subscriptionId: subscriptionPlan.subscriptionId!,
+              });
             }
           } else {
             router.push("/pricing");
@@ -67,12 +67,12 @@ const BillingForm = ({ subscriptionPlan }: IBillingForm) => {
 
           <CardFooter className="flex flex-col items-start space-y-2 md:flex-row md:justify-between md:space-x-0">
             <Button type="submit">
-              {/* {isLoading ? (
+              {isLoading ? (
                 <Loader2 className="mr-4 h-4 w-4 animate-spin" />
               ) : null}
               {subscriptionPlan.isSubscribed && !subscriptionPlan.isCanceled
                 ? "Cancel Subscription"
-                : "Upgrade to a Plan"} */}
+                : "Upgrade to a Plan"}
             </Button>
 
             {subscriptionPlan.isSubscribed ? (

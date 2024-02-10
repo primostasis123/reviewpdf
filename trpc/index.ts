@@ -83,23 +83,23 @@ export const appRouter = router({
     });
   }),
 
-  // cancelSubscription: privateProcedure
-  //   .input(z.object({ token: z.string(), subscriptionId: z.string() }))
-  //   .mutation(async ({ input }) => {
-  //     const response = await fetch(`${process.env.PAYPAL_URL_API}/v1/billing/subscriptions/${input.subscriptionId}/cancel`, {
-  //       method: 'POST',
-  //         headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': `Bearer ${input.token}`
-  //         }
-  //     });
-  //     if (!response.ok) {
-  //       throw new TRPCError({ code: "BAD_REQUEST" });
-  //     }
-  //     const data = response.json()
-  //     return "subscription cancelled successfully";
+  cancelSubscription: privateProcedure
+    .input(z.object({ token: z.string(), subscriptionId: z.string() }))
+    .mutation(async ({ input }) => {
+      const response = await fetch(`${process.env.PAYPAL_URL_API}/v1/billing/subscriptions/${input.subscriptionId}/cancel`, {
+        method: 'POST',
+          headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${input.token}`
+          }
+      });
+      if (!response.ok) {
+        throw new TRPCError({ code: "BAD_REQUEST" });
+      }
+      const data = response.json()
+      return "subscription cancelled successfully";
 
-  //   }),
+    }),
   createUser: publicProcedure
     .input(
       z.object({
