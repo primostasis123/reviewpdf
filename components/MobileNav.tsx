@@ -14,20 +14,21 @@ const MobileNav = ({
   isSubscribed: boolean;
 }) => {
   const [isOpen, setOpen] = useState<boolean>(false);
-
-  const toggleOpen = () => setOpen((prev) => !prev);
-
   const pathname = usePathname();
-
+  
+  const toggleOpen = () => setOpen((prev) => !prev);
+  
   useEffect(() => {
-    toggleOpen();
+    setOpen(false); // Close the isOpen state when pathname changes
   }, [pathname]);
-
+  
   const closeOnCurrent = (href: string) => {
     if (pathname === href) {
-      toggleOpen();
+      toggleOpen(); // Optionally close on a specific condition
     }
   };
+  
+
 
   return (
     <div className="sm:hidden">
@@ -85,9 +86,19 @@ const MobileNav = ({
                 </li>
                 <li>
                   {isSubscribed ? (
-                    <Link href="/dashboard/billing" className="flex items-center w-full " onClick={() => closeOnCurrent("/dashboard/billing")}>Manage Subscription</Link>
+                    <Link
+                      href="/dashboard/billing"
+                      className="flex items-center w-full "
+                      onClick={() => closeOnCurrent("/dashboard/billing")}
+                    >
+                      Manage Subscription
+                    </Link>
                   ) : (
-                    <Link href="/pricing" className="flex items-center w-full " onClick={() => closeOnCurrent("/pricing")}>
+                    <Link
+                      href="/pricing"
+                      className="flex items-center w-full "
+                      onClick={() => closeOnCurrent("/pricing")}
+                    >
                       Upgrade <Gem className="text-blue-600 h-4 w-4 ml-1.5" />
                     </Link>
                   )}

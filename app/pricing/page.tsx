@@ -29,19 +29,6 @@ export default async function page() {
           text: "4MB file size limit",
           footnote: "The maximum file size of a single PDF file.",
         },
-        // {
-        //   text: (
-        //     <a
-        //       href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them"
-        //       target="_blank"
-        //     >
-        //       <span className="underline text-sky-400">
-        //         4,096 tokens per response
-        //       </span>
-        //     </a>
-        //   ),
-        //   footnote: "Tokens can be thought of as pieces of words.",
-        // },
         {
           text: "Mobile-friendly interface",
         },
@@ -66,19 +53,6 @@ export default async function page() {
           text: "16MB file size limit",
           footnote: "The maximum file size of a single PDF file.",
         },
-        // {
-        //   text: (
-        //     <a
-        //       href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them"
-        //       target="_blank"
-        //     >
-        //       <span className="underline text-sky-400">
-        //         16,385 tokens per response
-        //       </span>
-        //     </a>
-        //   ),
-        //   footnote: "Tokens can be thought of as pieces of words.",
-        // },
         {
           text: "Mobile-friendly interface",
         },
@@ -103,19 +77,6 @@ export default async function page() {
           text: "32MB file size limit",
           footnote: "The maximum file size of a single PDF file.",
         },
-        // {
-        //   text: (
-        //     <a
-        //       href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them"
-        //       target="_blank"
-        //     >
-        //       <span className="underline text-sky-400">
-        //         16,385 tokens per response
-        //       </span>
-        //     </a>
-        //   ),
-        //   footnote: "Tokens can be thought of as pieces of words.",
-        // },
         {
           text: "Mobile-friendly interface",
         },
