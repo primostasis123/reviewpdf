@@ -21,17 +21,17 @@ const Navbar = async () => {
             isSubscribed={subscriptionPlan.isSubscribed}
           />
           <div className="hidden items-center space-x-4 sm:flex">
-            {/* <Link
-              href="/pricing"
-              className={buttonVariants({
-                variant: "ghost",
-                size: "sm",
-              })}
-            >
-              Pricing
-            </Link> */}
             {!session ? (
               <>
+                <Link
+                  href="/pricing"
+                  className={buttonVariants({
+                    variant: "ghost",
+                    size: "sm",
+                  })}
+                >
+                  Pricing
+                </Link>
                 <Link href="/login">
                   <Button className={buttonVariants({})}>Sign in</Button>
                 </Link>
