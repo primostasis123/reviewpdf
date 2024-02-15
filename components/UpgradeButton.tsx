@@ -21,7 +21,7 @@ const ButtonWrapper = ({ type, plan_id }: IButtonWrapper) => {
         title: "Successfully Subscribed!!",
         description: "Please enjoy your subscription",
       });
-      router.push("/dashboard");
+      router.refresh()
     },
   });
 

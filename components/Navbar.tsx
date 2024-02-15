@@ -16,9 +16,12 @@ const Navbar = async () => {
           <Link href="/" className="flex z-40 font-semibold">
             <span>ReviewPDF</span>
           </Link>
-          <MobileNav isAuth={!!session} isSubscribed={subscriptionPlan.isSubscribed} />
+          <MobileNav
+            isAuth={!!session}
+            isSubscribed={subscriptionPlan.isSubscribed}
+          />
           <div className="hidden items-center space-x-4 sm:flex">
-            <Link
+            {/* <Link
               href="/pricing"
               className={buttonVariants({
                 variant: "ghost",
@@ -26,7 +29,7 @@ const Navbar = async () => {
               })}
             >
               Pricing
-            </Link>
+            </Link> */}
             {!session ? (
               <>
                 <Link href="/login">
@@ -45,7 +48,12 @@ const Navbar = async () => {
                 >
                   Dashboard
                   </Link> */}
-                  <UserAccountNav isSubscribed={subscriptionPlan.isSubscribed } email={session.user.email!} imageUrl={session.user.image!} name={session.user.name!} />
+                <UserAccountNav
+                  isSubscribed={subscriptionPlan.isSubscribed}
+                  email={session.user.email!}
+                  imageUrl={session.user.image!}
+                  name={session.user.name!}
+                />
               </>
             )}
           </div>
