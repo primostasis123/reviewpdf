@@ -102,14 +102,14 @@ const Login = () => {
             <div>
               <div className="flex items-center justify-between">
                 <Label htmlFor="password"> Password</Label>
-                <div className="text-sm">
+                {/* <div className="text-sm">
                   <a
                     href="#"
                     className="font-semibold text-blue-600 hover:text-blue-500"
                   >
                     Forgot password?
                   </a>
-                </div>
+                </div> */}
               </div>
               <div className="mt-2">
                 <Input
