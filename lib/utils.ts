@@ -47,7 +47,7 @@ export function constructMetadata({
     // metadataBase: new URL("https://review-pdf.vercel.app"),
     // themeColor: "#FFF",
     robots: {
-      index: false,
+      index: true,
       follow: true,
       nocache: true,
       googleBot: {
